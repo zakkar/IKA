@@ -1,0 +1,28 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-Bomberman-9597.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Program Files\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\Engine\SharedPCH.Engine.h.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\Bomberman.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanCharacter.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanGameMode.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanBaseBomb.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanBasePickupItem.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanBaseWall.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanBombsManager.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanGameInstance.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\Bomberman.init.gen.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanBaseBomb.gen.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanBasePickupItem.gen.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanBaseWall.gen.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanBombsManager.gen.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanCharacter.gen.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanGameInstance.gen.cpp.obj"
+"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\BombermanGameMode.gen.cpp.obj"
+"C:\Program Files\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\Bomberman\PCLaunch.rc.res"
+"C:\Program Files\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\ModuleVersionResource.rc.inl.res"
+/OUT:"C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-Bomberman-9597.lib"

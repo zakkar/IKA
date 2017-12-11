@@ -1,0 +1,3 @@
+C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Source\Bomberman\Bomberman.Build.cs
+C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Source\Bomberman.Target.cs
+C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Source\BombermanEditor.Target.cs

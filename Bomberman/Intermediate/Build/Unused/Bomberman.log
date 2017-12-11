@@ -1,0 +1,23 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.props(31,3): warning MSB4011: "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Makefile.props" cannot be imported again. It was already imported at "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.cpp.props (31,3)". This is most likely a build authoring error. This subsequent import will be ignored. [C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\ProjectFiles\Bomberman.vcxproj]
+  Using 'git status' to determine working set for adaptive non-unity build.
+  Parsing headers for BombermanEditor
+    Running UnrealHeaderTool "C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Bomberman.uproject" "C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\BombermanEditor\Development\BombermanEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -installed
+  Reflection code generated for BombermanEditor in 50,7118031 seconds
+  Distributing 6 actions to XGE
+  --------------------Project: Default-------------------------------------------
+  BombermanCharacter.gen.cpp (1:27.21 at +0:00)
+  BombermanGameMode.cpp (1:26.90 at +0:00)
+  BombermanCharacter.cpp (1:26.87 at +0:00)
+  BombermanBaseBomb.cpp (2:01.48 at +0:00)
+  UE4Editor-Bomberman.lib (0:02.32 at +2:01)
+     Creating library C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-Bomberman.lib and object C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-Bomberman.exp
+  UE4Editor-Bomberman.dll (0:03.78 at +2:01)
+     Creating library C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-Bomberman.suppressed.lib and object C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-Bomberman.suppressed.exp
+  ---------------------- Done ----------------------
+   
+      Rebuild All: 1 succeeded, 0 failed, 0 skipped
+   
+  
+  
+  Deploying BombermanEditor Win64 Development...
+  Total build time: 184,96 seconds (XGE executor: 128,46 seconds)
