@@ -22,23 +22,36 @@ public:
 	// Sets default values for this actor's properties
 	ABombermanBaseWall();
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UStaticMesh* WallMesh;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Enum)
 		EWallType WallType;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UBoxComponent* CollisionMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FVector BoxExtent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<TSubclassOf<class ABombermanBasePickupItem>> ItemToSpawn;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UStaticMeshComponent* WallVisual;
+
+	virtual void PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent);
+
+	UFUNCTION(BlueprintNativeEvent)
+		void OnDestroyWall();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	
 	
 };

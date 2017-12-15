@@ -19,7 +19,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		float BombTimer = 5.f;
 
-	//Length of the blast when the bomb explode
+	//Initial Length of the blast when the bomb explode
 	UPROPERTY(EditAnywhere)
 		int BlastLengthMultiplier = 200;
 
@@ -30,6 +30,12 @@ public:
 	UPROPERTY(EditAnywhere)
 		class UParticleSystem* ExplosionEffect;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class USphereComponent* SphereComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMeshComponent* BombVisual;
+
 	void SetBombManager(class ABombermanBombsManager* InBombManager) { BombsManager = InBombManager; }
 	
 	void SetIsBeingUsed(bool UseValue) { bIsBeingUsed = UseValue; }
@@ -37,7 +43,9 @@ public:
 
 	void SetFiringLocation(const FVector& Location) { FiringLocation = Location; }
 
-	bool IsCountDownStarted() const { return bStartCountdown; }
+	bool IsReadyToSpawn() const { return !bStartCountdown && !bBlastStart; }
+
+	void IncreaseBlastLength(const int BlastModifier);
 
 protected:
 	// Called when the game starts or when spawned
@@ -64,8 +72,6 @@ protected:
 	bool bBlastStart = false;
 
 	float CachedBlastDuration;
-
-	UStaticMeshComponent* BombVisual;
 
 	TArray<FVector> HitDirections;
 

@@ -14,13 +14,14 @@ class ABombermanCharacter : public ACharacter
 public:
 	ABombermanCharacter();
 
-	//Number of maximum Bomb that the player can spawn
-	UPROPERTY()
+	//Number of maximum Bomb that the player can spawn from the start
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int MaxBombCanBeSpawned = 1;
 
 	//Number of maximum Bomb that the player can carry(including upgrades)
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite)
 	int MaxBombInventory = 4;
+	
 
 	UFUNCTION()
 	void FillInventory();
@@ -28,6 +29,17 @@ public:
 	void IncreaseMaxBombCanBeSpawned(const int NewValue);
 
 	virtual void BeginPlay() override;
+
+	void IncreasePlayerSpeed(const float speedMultiplier);
+
+	void IncreaseBombBlast(const int newBlastLength);
+
+	UFUNCTION(BlueprintCallable)
+	void Init();
+
+	//Used to offset spawwning bomb to avoid physics problem
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float OffsetBombSpawn = 50.f;
 
 protected:
 
@@ -44,6 +56,8 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface
 
+	void ChangeCharacterColor(const FLinearColor& NewColor);
+
 	class ABombermanBombsManager* BombFactory;
 
 	class UBombermanMovementComponent* MovementComponent;
@@ -52,6 +66,8 @@ protected:
 
 	class APlayerController* PlayerController;
 
-	float OffsetBombSpawn = 50.f;
+	float CurrentSpeedMultiplier =1.f;
+
+	int CountBombCanSpawn;
 };
 

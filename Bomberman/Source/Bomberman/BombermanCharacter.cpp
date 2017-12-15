@@ -39,26 +39,55 @@ ABombermanCharacter::ABombermanCharacter()
 	//Number of spawned should never go under the max of the inventory
 	check(MaxBombCanBeSpawned <= MaxBombInventory);
 	BombInventory.Reserve(MaxBombInventory);
+
+	CountBombCanSpawn = 0;
 }
 
 void ABombermanCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void ABombermanCharacter::Init()
+{
 	BombFactory = ABombermanBombsManager::GetInstance();
 
 	FillInventory();
-	
+
 	PlayerController = Cast<APlayerController>(Controller);
+	check(PlayerController);
+	int32 id = PlayerController->GetLocalPlayer()->GetControllerId();
+	if (id == 0)
+	{
+		ChangeCharacterColor(FLinearColor::Red);
+	}
+	else if (id == 1)
+	{
+		ChangeCharacterColor(FLinearColor::Blue);
+	}
 }
 
+void ABombermanCharacter::ChangeCharacterColor(const FLinearColor& NewColor)
+{
+	if (GetMesh())
+	{
+		UMaterialInstanceDynamic* DynamicMaterial = UMaterialInstanceDynamic::Create(GetMesh()->GetMaterial(0), this);
+		if (DynamicMaterial != nullptr)
+		{
+			DynamicMaterial->SetVectorParameterValue("BodyColor", NewColor);
+			GetMesh()->SetMaterial(0, DynamicMaterial);
+		}
+	}
+}
 
 void ABombermanCharacter::FillInventory()
 {
 	if (BombFactory != nullptr)
 	{
-		for (int index = 0; index < MaxBombCanBeSpawned; ++index)
+		for (int index = CountBombCanSpawn; index < MaxBombCanBeSpawned; ++index)
 		{
 			BombInventory.Insert(BombFactory->GetBomb(), index);
+			++CountBombCanSpawn;
 		}
 	}
 }
@@ -66,6 +95,7 @@ void ABombermanCharacter::FillInventory()
 void ABombermanCharacter::IncreaseMaxBombCanBeSpawned(const int NewValue)
 {
 	MaxBombCanBeSpawned = (MaxBombCanBeSpawned + NewValue) > MaxBombInventory ? MaxBombInventory : MaxBombCanBeSpawned + NewValue;
+	FillInventory();
 }
 //////////////////////////////////////////////////////////////////////////
 // Input
@@ -110,7 +140,8 @@ void ABombermanCharacter::MoveForward(float Value)
 
 		// get forward vector
 		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-		AddMovementInput(Direction, Value);
+		
+		AddMovementInput(Direction, Value * CurrentSpeedMultiplier);
 	}
 }
 
@@ -134,12 +165,31 @@ void ABombermanCharacter::SpawnBomb()
 {
 	for (ABombermanBaseBomb* Bomb : BombInventory)
 	{
-		if (!Bomb->IsCountDownStarted())
+		if (Bomb != nullptr && Bomb->IsReadyToSpawn())
 		{
 			const FVector& FiringPosition = GetActorLocation() + (-GetActorForwardVector() * OffsetBombSpawn);
 			Bomb->SetFiringLocation(FiringPosition);
 			Bomb->OnUse();
 			return;
+		}
+	}
+}
+
+void ABombermanCharacter::IncreasePlayerSpeed(const float SpeedMultiplier)
+{
+	if (UCharacterMovementComponent* MovementComponent = GetCharacterMovement())
+	{
+		MovementComponent->MaxWalkSpeed = MovementComponent->MaxWalkSpeed * SpeedMultiplier;
+	}
+}
+
+void ABombermanCharacter::IncreaseBombBlast(const int newBlastLength)
+{
+	for (ABombermanBaseBomb* Bomb : BombInventory)
+	{
+		if (Bomb != nullptr)
+		{
+			Bomb->IncreaseBlastLength(newBlastLength);
 		}
 	}
 }

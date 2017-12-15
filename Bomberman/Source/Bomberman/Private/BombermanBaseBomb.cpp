@@ -12,9 +12,9 @@ PRAGMA_DISABLE_OPTIMIZATION
 ABombermanBaseBomb::ABombermanBaseBomb()
 {
 	// Our root component will be a sphere that reacts to physics
-	USphereComponent* SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
+	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
 	RootComponent = SphereComponent;
-	SphereComponent->InitSphereRadius(40.0f);
+	SphereComponent->InitSphereRadius(20.0f);
 
 	// Create and position a mesh component so we can see where our sphere is
 	BombVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BombVisual"));
@@ -24,7 +24,7 @@ ABombermanBaseBomb::ABombermanBaseBomb()
 	{
 		BombVisual->SetStaticMesh(SphereVisualAsset.Object);
 		BombVisual->SetRelativeLocation(FVector(0.0f, 0.0f, -40.0f));
-		BombVisual->SetWorldScale3D(FVector(0.8f));
+		BombVisual->SetWorldScale3D(FVector(0.4f));
 	}
 
 	ExplosionParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ExplosionParticleComponent"));
@@ -47,7 +47,6 @@ ABombermanBaseBomb::ABombermanBaseBomb()
 	PrimaryActorTick.bStartWithTickEnabled = false;
 
 	BombVisual->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-
 	HitDirections.Reserve(4);
 
 }
@@ -70,24 +69,24 @@ void ABombermanBaseBomb::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (bStartCountdown)
-	{
-		CachedBombTimer -= DeltaTime;
-		if (CachedBombTimer < 0.f)
-		{
-			OnExplodeStart();
-		}
-	}
-
-	if (bBlastStart)
-	{
-		CachedBlastDuration-= DeltaTime;
-		BlastingRaycast();
-		if (CachedBlastDuration < 0.f)
-		{
-			OnExplodeEnd();
-		}
-	}
+ 	if (bStartCountdown)
+ 	{
+ 		CachedBombTimer -= DeltaTime;
+ 		if (CachedBombTimer < 0.f)
+ 		{
+ 			OnExplodeStart();
+ 		}
+ 	}
+ 
+ 	if (bBlastStart)
+ 	{
+ 		CachedBlastDuration-= DeltaTime;
+ 		BlastingRaycast();
+ 		if (CachedBlastDuration < 0.f)
+ 		{
+ 			OnExplodeEnd();
+ 		}
+ 	}
 }
 
 void ABombermanBaseBomb::OnUse()
@@ -130,7 +129,6 @@ void ABombermanBaseBomb::OnExplodeEnd()
 
 void ABombermanBaseBomb::BlastingRaycast()
 {
-
 	TArray<FHitResult> ObstacleHitResults;
 	ObstacleHitResults.Init(FHitResult(ForceInit), 3);
 	FCollisionQueryParams ObstacleCollisionQueryParams = FCollisionQueryParams(FName(TEXT("Trace")), true, this);
@@ -138,34 +136,45 @@ void ABombermanBaseBomb::BlastingRaycast()
 	ObstacleCollisionQueryParams.bReturnFaceIndex = false;
 	ObstacleCollisionQueryParams.bReturnPhysicalMaterial = false;
 
+	FCollisionObjectQueryParams ObjectList(ECC_Destructible);
+	ObjectList.AddObjectTypesToQuery(ECC_Pawn);
+
 	const FVector& Start = GetActorLocation();
 	FVector End = FVector::ZeroVector;
 
-	FCollisionResponseParams CollisionResponseParams = FCollisionResponseParams(ECollisionResponse::ECR_Block);
-
+	//Should have used Channel for this but got problems related to the .ini file
 	for (int index = 0 ; index < HitDirections.Num(); ++index)
 	{
 		End = Start + (HitDirections[index] * BlastLengthMultiplier);
 	
 		DrawDebugLine(GetWorld(), Start, End, FColor::Red);
-  		if (BombVisual->GetWorld()->LineTraceMultiByChannel(ObstacleHitResults, Start, End, ECollisionChannel::ECC_GameTraceChannel11, ObstacleCollisionQueryParams, CollisionResponseParams))
+		if (BombVisual->GetWorld()->LineTraceMultiByObjectType(ObstacleHitResults, Start, End, ObjectList))
 		{
 			for (FHitResult& hit : ObstacleHitResults)
 			{
 				if (hit.Actor != nullptr)
 				{
-					if (hit.Actor->ActorHasTag("Wall"))
+					if (hit.Actor->ActorHasTag("DestructibleWall"))
 					{
 						ABombermanBaseWall* wall = Cast<ABombermanBaseWall>(hit.GetActor());
-						wall->Destroy();
+						wall->OnDestroyWall();
 					}
 					else if (hit.Actor->ActorHasTag("Character"))
 					{
 						ABombermanCharacter* character = Cast<ABombermanCharacter>(hit.GetActor());
 						character->Destroy();
 					}
+					else if (hit.Actor->ActorHasTag("DestructibleItem"))
+					{
+						hit.Actor->Destroy();
+					}
 				}
 			}
 		}
 	}
+}
+
+void ABombermanBaseBomb::IncreaseBlastLength(int newBlastLengthMultiplier)
+{
+	BlastLengthMultiplier += newBlastLengthMultiplier;
 }

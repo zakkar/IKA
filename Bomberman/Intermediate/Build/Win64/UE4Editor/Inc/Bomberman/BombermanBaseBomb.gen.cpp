@@ -18,6 +18,8 @@ void EmptyLinkFunctionForGeneratedCodeBombermanBaseBomb() {}
 	ENGINE_API UClass* Z_Construct_UClass_AActor();
 	UPackage* Z_Construct_UPackage__Script_Bomberman();
 	BOMBERMAN_API UFunction* Z_Construct_UFunction_ABombermanBaseBomb_OnUse();
+	ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_USphereComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UParticleSystem_NoRegister();
 // End Cross Module References
 	void ABombermanBaseBomb::StaticRegisterNativesABombermanBaseBomb()
@@ -66,6 +68,22 @@ void EmptyLinkFunctionForGeneratedCodeBombermanBaseBomb() {}
 			};
 #endif
 #if WITH_METADATA
+			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_BombVisual_MetaData[] = {
+				{ "Category", "BombermanBaseBomb" },
+				{ "EditInline", "true" },
+				{ "ModuleRelativePath", "Public/BombermanBaseBomb.h" },
+			};
+#endif
+			static const UE4CodeGen_Private::FObjectPropertyParams NewProp_BombVisual = { UE4CodeGen_Private::EPropertyClass::Object, "BombVisual", RF_Public|RF_Transient|RF_MarkAsNative, 0x001000000008000d, 1, nullptr, STRUCT_OFFSET(ABombermanBaseBomb, BombVisual), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(NewProp_BombVisual_MetaData, ARRAY_COUNT(NewProp_BombVisual_MetaData)) };
+#if WITH_METADATA
+			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SphereComponent_MetaData[] = {
+				{ "Category", "BombermanBaseBomb" },
+				{ "EditInline", "true" },
+				{ "ModuleRelativePath", "Public/BombermanBaseBomb.h" },
+			};
+#endif
+			static const UE4CodeGen_Private::FObjectPropertyParams NewProp_SphereComponent = { UE4CodeGen_Private::EPropertyClass::Object, "SphereComponent", RF_Public|RF_Transient|RF_MarkAsNative, 0x001000000008000d, 1, nullptr, STRUCT_OFFSET(ABombermanBaseBomb, SphereComponent), Z_Construct_UClass_USphereComponent_NoRegister, METADATA_PARAMS(NewProp_SphereComponent_MetaData, ARRAY_COUNT(NewProp_SphereComponent_MetaData)) };
+#if WITH_METADATA
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_ExplosionEffect_MetaData[] = {
 				{ "Category", "BombermanBaseBomb" },
 				{ "ModuleRelativePath", "Public/BombermanBaseBomb.h" },
@@ -84,7 +102,7 @@ void EmptyLinkFunctionForGeneratedCodeBombermanBaseBomb() {}
 			static const UE4CodeGen_Private::FMetaDataPairParam NewProp_BlastLengthMultiplier_MetaData[] = {
 				{ "Category", "BombermanBaseBomb" },
 				{ "ModuleRelativePath", "Public/BombermanBaseBomb.h" },
-				{ "ToolTip", "Length of the blast when the bomb explode" },
+				{ "ToolTip", "Initial Length of the blast when the bomb explode" },
 			};
 #endif
 			static const UE4CodeGen_Private::FUnsizedIntPropertyParams NewProp_BlastLengthMultiplier = { UE4CodeGen_Private::EPropertyClass::Int, "BlastLengthMultiplier", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000001, 1, nullptr, STRUCT_OFFSET(ABombermanBaseBomb, BlastLengthMultiplier), METADATA_PARAMS(NewProp_BlastLengthMultiplier_MetaData, ARRAY_COUNT(NewProp_BlastLengthMultiplier_MetaData)) };
@@ -97,6 +115,8 @@ void EmptyLinkFunctionForGeneratedCodeBombermanBaseBomb() {}
 #endif
 			static const UE4CodeGen_Private::FFloatPropertyParams NewProp_BombTimer = { UE4CodeGen_Private::EPropertyClass::Float, "BombTimer", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000001, 1, nullptr, STRUCT_OFFSET(ABombermanBaseBomb, BombTimer), METADATA_PARAMS(NewProp_BombTimer_MetaData, ARRAY_COUNT(NewProp_BombTimer_MetaData)) };
 			static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[] = {
+				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_BombVisual,
+				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_SphereComponent,
 				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_ExplosionEffect,
 				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_BlastDuration,
 				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_BlastLengthMultiplier,
@@ -120,7 +140,7 @@ void EmptyLinkFunctionForGeneratedCodeBombermanBaseBomb() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(ABombermanBaseBomb, 2029193195);
+	IMPLEMENT_CLASS(ABombermanBaseBomb, 1974959713);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_ABombermanBaseBomb(Z_Construct_UClass_ABombermanBaseBomb, &ABombermanBaseBomb::StaticClass, TEXT("/Script/Bomberman"), TEXT("ABombermanBaseBomb"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(ABombermanBaseBomb);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

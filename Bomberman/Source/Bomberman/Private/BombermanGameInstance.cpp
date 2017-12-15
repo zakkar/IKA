@@ -2,6 +2,8 @@
 
 #include "BombermanGameInstance.h"
 #include "BombermanBombsManager.h"
+#include "BombermanCharacter.h"
+#include "EngineUtils.h"
 
 void UBombermanGameInstance::Init()
 {

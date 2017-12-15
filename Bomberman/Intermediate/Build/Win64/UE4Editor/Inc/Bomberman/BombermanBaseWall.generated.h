@@ -13,8 +13,32 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define BOMBERMAN_BombermanBaseWall_generated_h
 
-#define Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_RPC_WRAPPERS
-#define Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_RPC_WRAPPERS_NO_PURE_DECLS
+#define Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_RPC_WRAPPERS \
+	virtual void OnDestroyWall_Implementation(); \
+ \
+	DECLARE_FUNCTION(execOnDestroyWall) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->OnDestroyWall_Implementation(); \
+		P_NATIVE_END; \
+	}
+
+
+#define Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_RPC_WRAPPERS_NO_PURE_DECLS \
+	virtual void OnDestroyWall_Implementation(); \
+ \
+	DECLARE_FUNCTION(execOnDestroyWall) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->OnDestroyWall_Implementation(); \
+		P_NATIVE_END; \
+	}
+
+
+#define Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_EVENT_PARMS
+#define Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_CALLBACK_WRAPPERS
 #define Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesABombermanBaseWall(); \
@@ -60,12 +84,16 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(ABombermanBaseWall); \
 
 
 #define Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_PRIVATE_PROPERTY_OFFSET
-#define Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_16_PROLOG
+#define Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_16_PROLOG \
+	Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_EVENT_PARMS
+
+
 #define Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
 	Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_PRIVATE_PROPERTY_OFFSET \
 	Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_RPC_WRAPPERS \
+	Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_CALLBACK_WRAPPERS \
 	Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_INCLASS \
 	Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_STANDARD_CONSTRUCTORS \
 public: \
@@ -77,6 +105,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
 	Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_PRIVATE_PROPERTY_OFFSET \
 	Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_RPC_WRAPPERS_NO_PURE_DECLS \
+	Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_CALLBACK_WRAPPERS \
 	Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_INCLASS_NO_PURE_DECLS \
 	Bomberman_Source_Bomberman_Public_BombermanBaseWall_h_19_ENHANCED_CONSTRUCTORS \
 private: \

@@ -15,6 +15,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 #define Bomberman_Source_Bomberman_BombermanCharacter_h_12_RPC_WRAPPERS \
  \
+	DECLARE_FUNCTION(execInit) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->Init(); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execFillInventory) \
 	{ \
 		P_FINISH; \
@@ -25,6 +33,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 
 #define Bomberman_Source_Bomberman_BombermanCharacter_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execInit) \
+	{ \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->Init(); \
+		P_NATIVE_END; \
+	} \
  \
 	DECLARE_FUNCTION(execFillInventory) \
 	{ \
