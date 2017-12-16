@@ -17,6 +17,9 @@ class BOMBERMAN_API UBombermanGameInstance : public UGameInstance
 	virtual void Init() override;
 	virtual void OnStart() override;
 
+public:
+	void OnPlayerDestroy(const class ABombermanCharacter* PlayerCharacter);
+
 	class ABombermanBombsManager* GetBombsManager() const { return BombsManager; }
 
 protected:

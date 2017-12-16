@@ -43,6 +43,7 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	float SpeedMultiplier = 2.f;
 
+	bool CanBeDestroyed() { return bCanBeDestroyed; };
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -54,6 +55,9 @@ protected:
 	void OnPickup(class ABombermanCharacter* PlayerCharacter);
 
 	virtual void PostEditChangeProperty(struct FPropertyChangedEvent& PropertyChangedEvent);
+
+	float TimerBeforeCanBeDestroyed = 3.f;
+	bool bCanBeDestroyed = false;
 
 public:	
 	// Called every frame

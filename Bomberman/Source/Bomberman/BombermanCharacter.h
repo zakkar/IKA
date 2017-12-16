@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "BombermanCharacter.generated.h"
 
+DECLARE_DELEGATE_OneParam(FOnPlayerDestroy_Delegate,const class ABombermanCharacter*);
+
 UCLASS(config=Game)
 class ABombermanCharacter : public ACharacter
 {
@@ -41,6 +43,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float OffsetBombSpawn = 50.f;
 
+	void OnDestroy();
+
+	FOnPlayerDestroy_Delegate OnPlayerDestroyDelegate;
 protected:
 
 	/** Called for forwards/backward input */

@@ -17,7 +17,7 @@ public:
 
 	//Timer for the bomb before it explode
 	UPROPERTY(EditAnywhere)
-		float BombTimer = 5.f;
+		float BombTimer = 4.f;
 
 	//Initial Length of the blast when the bomb explode
 	UPROPERTY(EditAnywhere)
@@ -25,7 +25,7 @@ public:
 
 	//Length of the blast when the bomb explode
 	UPROPERTY(EditAnywhere)
-		float BlastDuration = 4.f;
+		float BlastDuration = 2.f;
 
 	UPROPERTY(EditAnywhere)
 		class UParticleSystem* ExplosionEffect;

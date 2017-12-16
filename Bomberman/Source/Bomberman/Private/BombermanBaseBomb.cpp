@@ -5,6 +5,7 @@
 #include "BombermanBombsManager.h"
 #include "BombermanCharacter.h"
 #include "BombermanBaseWall.h"
+#include "BombermanBasePickupItem.h"
 
 PRAGMA_DISABLE_OPTIMIZATION
 
@@ -14,7 +15,7 @@ ABombermanBaseBomb::ABombermanBaseBomb()
 	// Our root component will be a sphere that reacts to physics
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
 	RootComponent = SphereComponent;
-	SphereComponent->InitSphereRadius(20.0f);
+	SphereComponent->InitSphereRadius(30.0f);
 
 	// Create and position a mesh component so we can see where our sphere is
 	BombVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BombVisual"));
@@ -24,7 +25,7 @@ ABombermanBaseBomb::ABombermanBaseBomb()
 	{
 		BombVisual->SetStaticMesh(SphereVisualAsset.Object);
 		BombVisual->SetRelativeLocation(FVector(0.0f, 0.0f, -40.0f));
-		BombVisual->SetWorldScale3D(FVector(0.4f));
+		BombVisual->SetWorldScale3D(FVector(0.6f));
 	}
 
 	ExplosionParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ExplosionParticleComponent"));
@@ -41,6 +42,8 @@ ABombermanBaseBomb::ABombermanBaseBomb()
 	CachedBlastDuration = BlastDuration;
 
 	FiringLocation = FVector::ZeroVector;
+
+	Tags.Add(FName("Bomb"));
 
 	//Remove tick from the actor
 	PrimaryActorTick.bCanEverTick = true;
@@ -132,23 +135,20 @@ void ABombermanBaseBomb::BlastingRaycast()
 	TArray<FHitResult> ObstacleHitResults;
 	ObstacleHitResults.Init(FHitResult(ForceInit), 3);
 	FCollisionQueryParams ObstacleCollisionQueryParams = FCollisionQueryParams(FName(TEXT("Trace")), true, this);
-	ObstacleCollisionQueryParams.bTraceComplex = true;
+	ObstacleCollisionQueryParams.bTraceComplex = false;
 	ObstacleCollisionQueryParams.bReturnFaceIndex = false;
 	ObstacleCollisionQueryParams.bReturnPhysicalMaterial = false;
-
-	FCollisionObjectQueryParams ObjectList(ECC_Destructible);
-	ObjectList.AddObjectTypesToQuery(ECC_Pawn);
 
 	const FVector& Start = GetActorLocation();
 	FVector End = FVector::ZeroVector;
 
-	//Should have used Channel for this but got problems related to the .ini file
+	//ECC_GameTraceChannel11 is defined in the engine .ini file as bombchannel
 	for (int index = 0 ; index < HitDirections.Num(); ++index)
 	{
 		End = Start + (HitDirections[index] * BlastLengthMultiplier);
 	
 		DrawDebugLine(GetWorld(), Start, End, FColor::Red);
-		if (BombVisual->GetWorld()->LineTraceMultiByObjectType(ObstacleHitResults, Start, End, ObjectList))
+		if (BombVisual->GetWorld()->LineTraceMultiByChannel(ObstacleHitResults, Start, End, ECollisionChannel::ECC_GameTraceChannel11, ObstacleCollisionQueryParams))
 		{
 			for (FHitResult& hit : ObstacleHitResults)
 			{
@@ -156,17 +156,34 @@ void ABombermanBaseBomb::BlastingRaycast()
 				{
 					if (hit.Actor->ActorHasTag("DestructibleWall"))
 					{
-						ABombermanBaseWall* wall = Cast<ABombermanBaseWall>(hit.GetActor());
-						wall->OnDestroyWall();
+						if (ABombermanBaseWall* wall = Cast<ABombermanBaseWall>(hit.GetActor()))
+						{
+							wall->OnDestroyWall();
+						}			
 					}
 					else if (hit.Actor->ActorHasTag("Character"))
 					{
-						ABombermanCharacter* character = Cast<ABombermanCharacter>(hit.GetActor());
-						character->Destroy();
+						if (ABombermanCharacter* character = Cast<ABombermanCharacter>(hit.GetActor()))
+						{
+							character->OnDestroy();
+						}		
 					}
 					else if (hit.Actor->ActorHasTag("DestructibleItem"))
 					{
-						hit.Actor->Destroy();
+						if (ABombermanBasePickupItem* item = Cast<ABombermanBasePickupItem>(hit.GetActor()))
+						{
+							if (item->CanBeDestroyed())
+							{
+								item->Destroy();
+							}		
+						}					
+					}
+					else if (hit.Actor->ActorHasTag("Bomb"))
+					{
+						if (ABombermanBaseBomb* bomb = Cast<ABombermanBaseBomb>(hit.GetActor()))
+						{
+							bomb->OnExplodeStart();
+						}		
 					}
 				}
 			}
@@ -178,3 +195,4 @@ void ABombermanBaseBomb::IncreaseBlastLength(int newBlastLengthMultiplier)
 {
 	BlastLengthMultiplier += newBlastLengthMultiplier;
 }
+

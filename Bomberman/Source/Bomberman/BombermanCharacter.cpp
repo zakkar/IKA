@@ -10,6 +10,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "BombermanBombsManager.h"
 #include "BombermanBaseBomb.h"
+#include "BombermanGameInstance.h"
 
 PRAGMA_DISABLE_OPTIMIZATION
 
@@ -46,6 +47,12 @@ ABombermanCharacter::ABombermanCharacter()
 void ABombermanCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (UBombermanGameInstance* GameInstance =  Cast<UBombermanGameInstance>(GetGameInstance()))
+	{
+		OnPlayerDestroyDelegate.BindUObject(GameInstance, &UBombermanGameInstance::OnPlayerDestroy);
+	}
+
 }
 
 void ABombermanCharacter::Init()
@@ -63,7 +70,7 @@ void ABombermanCharacter::Init()
 	}
 	else if (id == 1)
 	{
-		ChangeCharacterColor(FLinearColor::Blue);
+		ChangeCharacterColor(FLinearColor::Yellow);
 	}
 }
 
@@ -180,6 +187,7 @@ void ABombermanCharacter::IncreasePlayerSpeed(const float SpeedMultiplier)
 	if (UCharacterMovementComponent* MovementComponent = GetCharacterMovement())
 	{
 		MovementComponent->MaxWalkSpeed = MovementComponent->MaxWalkSpeed * SpeedMultiplier;
+		MovementComponent->MaxAcceleration = MovementComponent->MaxAcceleration * SpeedMultiplier;
 	}
 }
 
@@ -192,4 +200,11 @@ void ABombermanCharacter::IncreaseBombBlast(const int newBlastLength)
 			Bomb->IncreaseBlastLength(newBlastLength);
 		}
 	}
+}
+
+void ABombermanCharacter::OnDestroy()
+{
+	OnPlayerDestroyDelegate.ExecuteIfBound(this);
+	OnPlayerDestroyDelegate.Unbind();
+	Destroy();
 }

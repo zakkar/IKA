@@ -55,6 +55,12 @@ void ABombermanBasePickupItem::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	//This is used to avoid destroying the item as soon as it is spawned
+	TimerBeforeCanBeDestroyed -= DeltaTime;
+	if (TimerBeforeCanBeDestroyed < 0.0f)
+	{
+		bCanBeDestroyed = true;
+	}
 }
 
 void ABombermanBasePickupItem::OnTriggerEnter(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -62,6 +68,7 @@ void ABombermanBasePickupItem::OnTriggerEnter(UPrimitiveComponent* OverlappedCom
 	if (ABombermanCharacter* character = Cast<ABombermanCharacter>(OtherActor))
 	{
 		OnPickup(character);
+		Destroy();
 	}
 }
 

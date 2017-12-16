@@ -3,6 +3,7 @@
 #include "BombermanViewportClient.h"
 #include "Engine.h"
 
+//Code taken from internet from unreal tutorials for C++ local multiplayer 
 bool UBombermanViewportClient::InputKey(FViewport* Viewport, int32 ControllerId, FKey Key, EInputEvent EventType, float AmountDepressed, bool bGamepad)
 {
 	if (IgnoreInput() || bGamepad || Key.IsMouseButton())

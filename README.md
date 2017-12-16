@@ -4,6 +4,32 @@
 Bomberman projet
 ##########
 
+How to play 
+-Launch Bomberman Unreal Project
+-Open BombermanMap (Should be loaded by default)
+-Press the play button
+-Control for player 1 : WASD to move and Space to spawn bombs
+-Control for player 2 : Arows UP/DOWN/LEFT/RIGHT and ctrl right to spawn bomb
+
+2 types of walls : Destructible and Non Destructible
+3 types of drop items : Faster Run, More Bombs, Longer range Blast
+
+The game end when only one player is left or time out
+
+All the code source are under  IKA\Bomberman\Source\Bomberman\
+The blueprints are under IKA\Bomberman\Content\Blueprints
+List of blueprint used
+-FasterRun, LongerBlast, MoreBombs : used as pickups and inherit from BombermanBasePickupItem
+-DestructibleWall, NormalWall : used as walls and inherit from BombermanBaseWall
+-BombermanUI : UMG to display timer
+-Bomberman_BP : The default pawn used
+
+\Content
+-CustomGameMode : a defined game mode that uses customs elements in which i've made the spawn logic
+
+Under LevelBlueprint i have created the camera logic
+
+####################
 This first submission contains the UE4 project and core mechanic gameplay, actually everything is made with C++
 
 here's the differents classes created and used for the game
@@ -61,4 +87,42 @@ What is done
 
 this second part took me about 6 hours to complete
 
+####################
+
+Third submission
+
+What is done 
+
+-Creating main map for bomberman
+-Fixing proper spawning of the players
+-Fixing bomb multicast now working properly with channel 
+-Wall block raycast and wall destrutible, item, player are destroyed 
+-Adding widget for timer
+-Adding Winning debug message 
+
+This part took me around 4 hours
+
+####################
+
+The completition of this project took me around 20 hours including coding, designing and debugging
+
+Features completed
+-Static top-down camera (Set up on Level blueprint)
+-One pre-defined map
+-Couch Co-op
+-Implmentation of different pickups : longer bomb blasts, more bombs, faster run
+-Bomb placing (no bomb remote)
+-Player death when standing in bomb
+-Linear blast bomb
+-Destructible walls spawn item upon destruction
+-Show debug win 
+
+
+What need to be done next time
+-Winning system (to include in the game mode)
+-A Restart system for the game
+-A manager for spawning items to avoid GC and save perf
+-Random generation for the map
+-Adding AI (basic state machine)
+-Adding debug system
  

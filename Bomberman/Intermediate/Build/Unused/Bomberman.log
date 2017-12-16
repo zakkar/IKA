@@ -1,29 +1,5 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.props(31,3): warning MSB4011: "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Makefile.props" cannot be imported again. It was already imported at "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.cpp.props (31,3)". This is most likely a build authoring error. This subsequent import will be ignored. [C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\ProjectFiles\Bomberman.vcxproj]
   Using 'git status' to determine working set for adaptive non-unity build.
-  Parsing headers for BombermanEditor
-    Running UnrealHeaderTool "C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Bomberman.uproject" "C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\BombermanEditor\Development\BombermanEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -installed
-  Reflection code generated for BombermanEditor in 14,5105504 seconds
-  Distributing 12 actions to XGE
-  --------------------Project: Default-------------------------------------------
-  BombermanGameInstance.cpp (1:46.43 at +0:00)
-  Bomberman.init.gen.cpp (1:47.01 at +0:00)
-  BombermanBaseBomb.gen.cpp (1:47.23 at +0:00)
-  BombermanBaseWall.gen.cpp (1:47.48 at +0:00)
-  BombermanCharacter.gen.cpp (1:47.56 at +0:00)
-  BombermanCharacter.cpp (0:28.73 at +1:47)
-  BombermanBasePickupItem.cpp (5:29.23 at +1:47)
-  BombermanBombsManager.cpp (7:15.81 at +0:00)
-  BombermanBaseWall.cpp (5:29.59 at +1:46)
-  BombermanBaseBomb.cpp (5:28.92 at +1:47)
-  UE4Editor-Bomberman.lib (0:05.81 at +7:18)
-     Creating library C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-Bomberman.lib and object C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-Bomberman.exp
-  UE4Editor-Bomberman.dll (0:10.64 at +7:16)
-     Creating library C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-Bomberman.suppressed.lib and object C:\Users\Zakkar\Documents\GitHub\IKA\Bomberman\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-Bomberman.suppressed.exp
-  ---------------------- Done ----------------------
-   
-      Rebuild All: 1 succeeded, 0 failed, 0 skipped
-   
-  
-  
+  Target is up to date
   Deploying BombermanEditor Win64 Development...
-  Total build time: 476,97 seconds (XGE executor: 457,48 seconds)
+  Total build time: 7,39 seconds (NoActionsToExecute executor: 0,00 seconds)

@@ -5,18 +5,25 @@
 #include "Engine.h"
 #include "BombermanBasePickupItem.h"
 
+PRAGMA_DISABLE_OPTIMIZATION
 
 // Sets default values
 ABombermanBaseWall::ABombermanBaseWall()
 {
 	CollisionMesh = CreateDefaultSubobject<UBoxComponent>(TEXT("WallCollision"));
 	CollisionMesh->bDynamicObstacle = true;
-	CollisionMesh->SetupAttachment(GetRootComponent());
+	RootComponent = CollisionMesh;
 
 	BoxExtent = FVector(50.f,50.f,50.f);
 
 	WallVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WallVisual"));
 	WallVisual->SetupAttachment(RootComponent);
+
+	if (WallMesh != nullptr)
+	{
+		WallVisual->SetStaticMesh(WallMesh); // Update the component to the new mesh 
+		WallVisual->SetRelativeLocation(FVector(0.0f, 0.0f, -40.0f));
+	}
 }
 
 // Called when the game starts or when spawned
@@ -38,8 +45,9 @@ void ABombermanBaseWall::OnDestroyWall_Implementation()
 	if (GetWorld() == nullptr)
 		return;
 
-	const int percentage = 33;
-	if (FMath::RandRange(1, 100) <= 33)
+	const int Percentage = 33;
+	const int RandomRange = FMath::RandRange(1, 100); //(1,100) to 1/3
+	if (RandomRange <= Percentage)
 	{
 		const int indexObjectToSpawn = FMath::RandRange(0, ItemToSpawn.Num());
 		if (ItemToSpawn.IsValidIndex(indexObjectToSpawn))
@@ -49,7 +57,7 @@ void ABombermanBaseWall::OnDestroyWall_Implementation()
 			FActorSpawnParameters SpawnInfo;
 			GetWorld()->SpawnActor<ABombermanBasePickupItem>(ItemToSpawn[indexObjectToSpawn].Get(), Location, Rotation, SpawnInfo);
 		}
-	}	
+	}
 
 	Destroy();
 }
